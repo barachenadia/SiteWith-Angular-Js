@@ -9,25 +9,13 @@
     app.controller('StoreController', function(){
         this.products = books ;
     });
-    app.controller('GalleryController', function(){
-      this.current = 0;
-      this.SetCurrent = function(newGallery) {
-        this.current = newGalery || 0;
-      }
-    });
+    // app.controller('GalleryController', function(){
+    //   this.current = 0;
+    //   this.SetCurrent = function(newGallery) {
+    //     this.current = newGalery || 0;
+    //   }
+    // });
 
-    app.controller('TabController', function(){
-
-  this.tab = 1;
-
-  this.setTab = function(selectTab) {
-    this.tab = selectTab;
-  };
-
-  this.isSet = function(selectedTab){
-    return this.tab === selectedTab;
-  };
-    });
     app.controller('ReviewController', function(){
       this.review = {};
       this.addReview = function(product){
@@ -37,9 +25,65 @@
       }
     });
 
+    app.directive('productDescriptions', function(){
+      return {
+        restrict: 'E',
+        templateUrl: 'product/product-descriptions.html',
+        };
+    });
+    app.directive('productSpecs', function(){
+      return {
+        restrict: 'E',
+        templateUrl: 'product/product-specs.html',
+       };
+
+
+      });
+
+    app.directive("productReviews", function() {
+      return {
+        restrict: 'E',
+        templateUrl: "product/product-reviews.html"
+      };
+    });
+
+    app.directive('productTabs', function(){
+      return {
+      restrict: 'E',
+      templateUrl:'product/product-tabs.html',
+      controller: function(){
+        this.tab = 1;
+        this.setTab = function(selectTab) {
+           this.tab = selectTab;};
+
+         this.isSet = function(selectedTab){
+            return this.tab === selectedTab;};
+      },
+      controllerAs:'tab',
+
+      };
+
+    });
+
+    app.directive('productGallery', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'product/product-gallery.html',
+    controller: function(){
+      this.current = 0;
+      this.setCurrent = function(imageNumber){
+      this.current = imageNumber || 0;
+        };
+
+    },
+    controllerAs: 'gallery'
+  };
+});
+
+
 var books = [
 
-{
+  {
      name : ' Laissée pour morte' ,
      price : 6.95 ,
      description : ' Un témoignage poignant et courageux. ',
